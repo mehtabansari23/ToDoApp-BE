@@ -46,7 +46,7 @@ public class ToDoController {
 	}
 	
 	@DeleteMapping("/deleteByIds/{ids}")
-	public ResponseEntity<Boolean> deleteByIds(@PathVariable("ids") Set<Integer> ids) {
+	public ResponseEntity<Boolean> deleteByIds(@PathVariable(required = true) Set<Integer> ids) {
 		if(ids != null && !ids.isEmpty()) {
 			toDoService.deleteByIds(ids);
 			return ResponseEntity.ok(true);

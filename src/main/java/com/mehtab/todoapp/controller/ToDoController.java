@@ -2,6 +2,7 @@ package com.mehtab.todoapp.controller;
 
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -55,10 +56,11 @@ public class ToDoController {
 	}
 	
 	@PatchMapping("/update")
-	public ResponseEntity<ToDo> update(@RequestBody ToDo toDo) {
-		if(toDo.getId() != null && toDo.getId() > 0){
-			ToDo updatedToDo = toDoService.update(toDo);
-			return ResponseEntity.ok(updatedToDo);
+	public ResponseEntity<List<ToDo>> update(@RequestBody Set<ToDo> toDoSet) {
+		List<ToDo> toDoList = toDoSet.stream().filter(toDo -> toDo.getId() != null && toDo.getId() > 0 ).collect(Collectors.toList());
+		if(!toDoList.isEmpty()){
+			List<ToDo> updatedToDos = toDoService.update(toDoList);
+			return ResponseEntity.ok(updatedToDos);
 		}
 		return ResponseEntity.badRequest().build();
 	}

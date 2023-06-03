@@ -27,13 +27,13 @@ public class ToDoDaoImpl implements ToDoDao {
 	}
 
 	@Override
-	public ToDo update(ToDo toDo) {
-		return toDoRepo.save(toDo);
+	public List<ToDo> update(List<ToDo> toDos) {
+		return toDoRepo.saveAll(toDos);
 	}
 
 	@Override
 	public void deleteByIds(Set<Integer> ids) {
 		toDoRepo.deleteAllById(ids);	
 	}
-
+		
 }

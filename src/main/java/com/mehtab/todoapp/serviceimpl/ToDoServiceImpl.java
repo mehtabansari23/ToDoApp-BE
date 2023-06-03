@@ -26,8 +26,8 @@ public class ToDoServiceImpl implements ToDoService {
 	}
 
 	@Override
-	public ToDo update(ToDo toDo) {
-		return toDoDao.update(toDo);
+	public List<ToDo> update(List<ToDo> toDos) {
+		return toDoDao.update(toDos);
 	}
 
 	@Override

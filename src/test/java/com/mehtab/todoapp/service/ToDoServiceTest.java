@@ -6,6 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyList;
 import static org.mockito.ArgumentMatchers.anySet;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.doThrow;
@@ -75,18 +76,18 @@ public class ToDoServiceTest {
     
     @Test
     void update_test_success() throws Exception {
-    	when(toDoDao.update(any(ToDo.class))).thenReturn(toDo);
+    	when(toDoDao.update(anyList())).thenReturn(List.of(toDo));
     	
-    	ToDo toDo2 = toDoService.update(toDo);
-    	assertEquals(toDo2.getName(), "test1");
+    	List<ToDo> toDos = toDoService.update(List.of(toDo));
+    	assertEquals(toDos.get(0).getName(), "test1");
     }
     
     @Test
     void update_test_failure() throws Exception {
-    	when(toDoDao.update(any(ToDo.class))).thenReturn(null);
+    	when(toDoDao.update(anyList())).thenReturn(null);
     	
-    	ToDo toDo = toDoService.update(new ToDo());
-    	assertNull(toDo);
+    	List<ToDo> toDos = toDoService.update(List.of(new ToDo()));
+    	assertNull(toDos);
     }
     
     @Test

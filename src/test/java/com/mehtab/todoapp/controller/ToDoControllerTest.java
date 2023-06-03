@@ -4,9 +4,11 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyList;
 import static org.mockito.Mockito.when;
 
 import java.util.List;
+import java.util.Set;
 
 import org.assertj.core.util.Sets;
 import org.junit.jupiter.api.BeforeEach;
@@ -80,10 +82,10 @@ public class ToDoControllerTest {
     
     @Test
     void create_update_success() throws Exception {
-    	when(toDoService.update(any(ToDo.class))).thenReturn(toDo);
+    	when(toDoService.update(anyList())).thenReturn(List.of(toDo));
     	
-    	ResponseEntity<ToDo> toDoResp = toDoController.update(toDo);
-    	assertEquals(toDoResp.getBody().getName(), "test1");
+    	ResponseEntity<List<ToDo>> toDoResp = toDoController.update(Set.of(toDo));
+    	assertEquals(toDoResp.getBody().get(0).getName(), "test1");
     	assertEquals(toDoResp.getStatusCode(), HttpStatus.OK);
     }
     

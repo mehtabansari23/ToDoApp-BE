@@ -6,6 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyList;
 import static org.mockito.ArgumentMatchers.anySet;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.doThrow;
@@ -75,17 +76,17 @@ public class ToDoDaoTest {
     
     @Test
     void update_test_success() throws Exception {
-    	when(toDoRepo.save(any(ToDo.class))).thenReturn(toDo);
+    	when(toDoRepo.saveAll(anyList())).thenReturn(List.of(toDo));
     	
-    	ToDo toDo2 = toDoDao.update(toDo);
-    	assertEquals(toDo2.getName(), "test1");
+    	List<ToDo> toDo2 = toDoDao.update(List.of(toDo));
+    	assertEquals(toDo2.get(0).getName(), "test1");
     }
     
     @Test
     void update_test_failure() throws Exception {
     	when(toDoRepo.save(any(ToDo.class))).thenReturn(null);
     	
-    	ToDo toDo = toDoDao.update(new ToDo());
+    	List<ToDo> toDo = toDoDao.update(List.of(new ToDo()));
     	assertNull(toDo);
     }
     

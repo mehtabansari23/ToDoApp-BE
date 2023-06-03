@@ -13,7 +13,8 @@ public interface ToDoDao {
 	
 	ToDo create(ToDo toDo);
 	
-	ToDo update(ToDo toDo);
+	List<ToDo> update(List<ToDo> toDos);
 	
 	void deleteByIds(Set<Integer> ids);
+
 }
